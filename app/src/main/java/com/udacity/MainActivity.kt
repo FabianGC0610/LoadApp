@@ -1,5 +1,6 @@
 package com.udacity
 
+import android.annotation.SuppressLint
 import android.app.DownloadManager
 import android.app.NotificationManager
 import android.app.PendingIntent
@@ -12,12 +13,15 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
 import com.udacity.databinding.ActivityMainBinding
+import com.udacity.utils.ToastUtils.showToast
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
     private var downloadID: Long = 0
+
+    private var url: String? = null
 
     private lateinit var notificationManager: NotificationManager
     private lateinit var pendingIntent: PendingIntent
@@ -31,35 +35,79 @@ class MainActivity : AppCompatActivity() {
 
         registerReceiver(receiver, IntentFilter(DownloadManager.ACTION_DOWNLOAD_COMPLETE))
 
-        // TODO: Implement code below
-//        binding.custom_button.setOnClickListener {
-//            download()
-//        }
-    }
+        binding.contentMain.customButton.setOnClickListener {
+            binding.contentMain.customButton.buttonState = ButtonState.Clicked
+            download(url)
+        }
 
-    private val receiver = object : BroadcastReceiver() {
-        override fun onReceive(context: Context?, intent: Intent?) {
-            val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
+        binding.contentMain.radioGroup.setOnCheckedChangeListener { _, checkedId ->
+            when (checkedId) {
+                R.id.radioButton1 -> {
+                    url = URL
+                }
+                R.id.radioButton2 -> {
+                    url = URL2
+                }
+                R.id.radioButton3 -> {
+                    url = URL3
+                }
+            }
         }
     }
 
-    private fun download() {
-        val request =
-            DownloadManager.Request(Uri.parse(URL))
-                .setTitle(getString(R.string.app_name))
-                .setDescription(getString(R.string.app_description))
-                .setRequiresCharging(false)
-                .setAllowedOverMetered(true)
-                .setAllowedOverRoaming(true)
+    private val receiver = object : BroadcastReceiver() {
+        @SuppressLint("Range")
+        override fun onReceive(context: Context?, intent: Intent?) {
+            val id = intent?.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID, -1)
 
-        val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
-        downloadID =
-            downloadManager.enqueue(request)// enqueue puts the download request in the queue.
+            if (id == downloadID) {
+                val query = DownloadManager.Query().setFilterById(downloadID)
+                val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+                val cursor = downloadManager.query(query)
+
+                if (cursor.moveToFirst()) {
+                    when (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))) {
+                        DownloadManager.STATUS_SUCCESSFUL -> {
+                            binding.contentMain.customButton.buttonState = ButtonState.Completed
+                            showToast(this@MainActivity, "Yolo")
+                        }
+                        DownloadManager.STATUS_FAILED -> {
+                            binding.contentMain.customButton.buttonState = ButtonState.Failed
+                            showToast(this@MainActivity, "Yolo2")
+                        }
+                    }
+                }
+
+                cursor.close()
+            }
+        }
+    }
+
+    private fun download(url: String?) {
+        if (!url.isNullOrBlank()) {
+            val request =
+                DownloadManager.Request(Uri.parse(url))
+                    .setTitle(getString(R.string.app_name))
+                    .setDescription(getString(R.string.app_description))
+                    .setRequiresCharging(false)
+                    .setAllowedOverMetered(true)
+                    .setAllowedOverRoaming(true)
+
+            val downloadManager = getSystemService(DOWNLOAD_SERVICE) as DownloadManager
+            downloadID =
+                downloadManager.enqueue(request) // enqueue puts the download request in the queue.
+        } else {
+            showToast(this, getString(R.string.no_option_selected_message))
+        }
     }
 
     companion object {
         private const val URL =
+            "https://github.com/bumptech/glide/archive/refs/heads/master.zip"
+        private const val URL2 =
             "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip"
+        private const val URL3 =
+            "https://github.com/square/retrofit/archive/refs/heads/master.zip"
         private const val CHANNEL_ID = "channelId"
     }
 }
