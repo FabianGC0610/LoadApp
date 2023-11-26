@@ -1,5 +1,6 @@
 package com.udacity.main
 
+import android.animation.ObjectAnimator
 import android.annotation.SuppressLint
 import android.app.DownloadManager
 import android.app.NotificationChannel
@@ -12,6 +13,7 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import com.udacity.R
@@ -46,6 +48,9 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.notification_channel_id),
             getString(R.string.notification_channel_name),
         )
+
+        startFlashingAnimation(binding.contentMain.swipeUpHelper)
+        startFlashingAnimation(binding.contentMain.swipeDownHelper)
 
         binding.contentMain.customButton.setOnClickListener {
             viewModel.onDownloadingStarted()
@@ -104,13 +109,13 @@ class MainActivity : AppCompatActivity() {
         viewModel.inputOptionState.observe(this) { inputState ->
             when (inputState) {
                 MainActivityViewModel.FieldState.Correct -> {
-                    showToast(this, "The URL is correct to download")
+                    showToast(this, getString(R.string.correct_url_toast_message))
                 }
                 MainActivityViewModel.FieldState.InCorrect -> {
-                    showToast(this, "The URL is incorrect")
+                    showToast(this, getString(R.string.incorrect_url_toast_message))
                 }
                 MainActivityViewModel.FieldState.Empty -> {
-                    showToast(this, "There is no URL to download")
+                    showToast(this, getString(R.string.empty_url_toast_message))
                 }
             }
         }
@@ -186,6 +191,14 @@ class MainActivity : AppCompatActivity() {
             )
             notificationManager.createNotificationChannel(notificationChannel)
         }
+    }
+
+    private fun startFlashingAnimation(view: View) {
+        val animator = ObjectAnimator.ofFloat(view, View.ALPHA, 0F)
+        animator.duration = 500
+        animator.repeatCount = ObjectAnimator.INFINITE
+        animator.repeatMode = ObjectAnimator.REVERSE
+        animator.start()
     }
 }
 

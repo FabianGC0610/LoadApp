@@ -17,6 +17,15 @@
     <string name="no_option_selected_message">Please select the file to download</string>
     <string name="failed_status">Fail</string>
     <string name="success_status">Success</string>
+    <string name="url_input_hint">Enter your URL</string>
+    <string name="url_input_title">Custom URL</string>
+
+    <string name="swipe_down_helper_text">Swipe down to have a custom url entry</string>
+    <string name="swipe_up_helper_text">Swipe up to show preset options</string>
+
+    <string name="correct_url_toast_message">The URL is correct to download</string>
+    <string name="incorrect_url_toast_message">The URL is incorrect</string>
+    <string name="empty_url_toast_message">There is no URL to download</string>
 
     <!-- Notification -->
     <string name="notification_channel_id" translatable="false">load_app_channel</string>
