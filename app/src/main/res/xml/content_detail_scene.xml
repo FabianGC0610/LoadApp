@@ -3,12 +3,13 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <Transition
-        app:constraintSetStart="@+id/start"
         app:constraintSetEnd="@+id/end"
-        app:duration="2000"/>
+        app:constraintSetStart="@+id/start"
+        app:duration="2000" />
 
     <ConstraintSet android:id="@+id/start">
-        <Constraint android:id="@+id/file_name_title"
+        <Constraint
+            android:id="@+id/file_name_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -17,7 +18,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Constraint android:id="@+id/file_name_value"
+        <Constraint
+            android:id="@+id/file_name_value"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -27,15 +29,17 @@
             app:layout_constraintStart_toEndOf="@+id/file_name_title"
             app:layout_constraintTop_toTopOf="@+id/file_name_title" />
 
-        <Constraint android:id="@+id/status_title"
+        <Constraint
+            android:id="@+id/status_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             android:visibility="invisible"
             app:layout_constraintStart_toStartOf="@+id/file_name_title"
-            app:layout_constraintTop_toBottomOf="@+id/file_name_value"/>
+            app:layout_constraintTop_toBottomOf="@+id/file_name_value" />
 
-        <Constraint android:id="@+id/status_value"
+        <Constraint
+            android:id="@+id/status_value"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
@@ -44,7 +48,65 @@
             app:layout_constraintStart_toStartOf="@+id/file_name_value"
             app:layout_constraintTop_toTopOf="@+id/status_title" />
 
-        <Constraint android:id="@+id/dismiss_button"
+        <Constraint
+            android:id="@+id/size_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@id/status_title"
+            app:layout_constraintTop_toBottomOf="@id/status_value" />
+
+        <Constraint
+            android:id="@+id/size_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/status_value"
+            app:layout_constraintTop_toTopOf="@+id/size_title" />
+
+        <Constraint
+            android:id="@+id/type_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@id/size_title"
+            app:layout_constraintTop_toBottomOf="@id/size_value" />
+
+        <Constraint
+            android:id="@+id/type_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/size_value"
+            app:layout_constraintTop_toTopOf="@+id/type_title" />
+
+        <Constraint
+            android:id="@+id/uri_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="@id/type_title"
+            app:layout_constraintTop_toBottomOf="@id/type_value" />
+
+        <Constraint
+            android:id="@+id/uri_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/type_value"
+            app:layout_constraintTop_toTopOf="@+id/uri_title" />
+
+        <Constraint
+            android:id="@+id/dismiss_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -53,11 +115,12 @@
             android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
     </ConstraintSet>
 
     <ConstraintSet android:id="@+id/end">
-        <Constraint android:id="@+id/file_name_title"
+        <Constraint
+            android:id="@+id/file_name_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -65,7 +128,8 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <Constraint android:id="@+id/file_name_value"
+        <Constraint
+            android:id="@+id/file_name_value"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="24dp"
@@ -74,14 +138,16 @@
             app:layout_constraintStart_toEndOf="@+id/file_name_title"
             app:layout_constraintTop_toTopOf="@+id/file_name_title" />
 
-        <Constraint android:id="@+id/status_title"
+        <Constraint
+            android:id="@+id/status_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
             app:layout_constraintStart_toStartOf="@+id/file_name_title"
-            app:layout_constraintTop_toBottomOf="@+id/file_name_value"/>
+            app:layout_constraintTop_toBottomOf="@+id/file_name_value" />
 
-        <Constraint android:id="@+id/status_value"
+        <Constraint
+            android:id="@+id/status_value"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginEnd="24dp"
@@ -89,7 +155,59 @@
             app:layout_constraintStart_toStartOf="@+id/file_name_value"
             app:layout_constraintTop_toTopOf="@+id/status_title" />
 
-        <Constraint android:id="@+id/dismiss_button"
+        <Constraint
+            android:id="@+id/size_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="@id/status_title"
+            app:layout_constraintTop_toBottomOf="@id/status_value" />
+
+        <Constraint
+            android:id="@+id/size_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/status_value"
+            app:layout_constraintTop_toTopOf="@+id/size_title" />
+
+        <Constraint
+            android:id="@+id/type_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="@id/size_title"
+            app:layout_constraintTop_toBottomOf="@id/size_value" />
+
+        <Constraint
+            android:id="@+id/type_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/size_value"
+            app:layout_constraintTop_toTopOf="@+id/type_title" />
+
+        <Constraint
+            android:id="@+id/uri_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            app:layout_constraintStart_toStartOf="@id/type_title"
+            app:layout_constraintTop_toBottomOf="@id/type_value" />
+
+        <Constraint
+            android:id="@+id/uri_value"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="@+id/type_value"
+            app:layout_constraintTop_toTopOf="@+id/uri_title" />
+
+        <Constraint
+            android:id="@+id/dismiss_button"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -97,6 +215,6 @@
             android:layout_marginBottom="16dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"/>
+            app:layout_constraintStart_toStartOf="parent" />
     </ConstraintSet>
 </MotionScene>

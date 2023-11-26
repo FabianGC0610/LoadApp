@@ -5,6 +5,7 @@ import android.os.Build
 import android.os.Bundle
 import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.ViewModelProvider
 import com.udacity.databinding.ActivityDetailBinding
 import com.udacity.main.MainActivity
 import com.udacity.model.TransferData
@@ -13,6 +14,8 @@ import com.udacity.utils.DATA_KEY
 class DetailActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDetailBinding
+
+    private lateinit var viewModel: DetailActivityViewModel
 
     private var isAnimationStarted = false
 
@@ -23,6 +26,8 @@ class DetailActivity : AppCompatActivity() {
         setContentView(binding.root)
         setSupportActionBar(binding.toolbar)
 
+        viewModel = ViewModelProvider(this)[DetailActivityViewModel::class.java]
+
         val intent = intent
 
         if (intent != null && intent.hasExtra(DATA_KEY)) {
@@ -31,12 +36,23 @@ class DetailActivity : AppCompatActivity() {
             if (data != null) {
                 binding.contentDetail.fileNameValue.text = data.fileName
                 binding.contentDetail.statusValue.text = data.downloadStatus
+                viewModel.toStatusFormat(data.downloadStatus, binding.contentDetail.statusValue)
+                binding.contentDetail.sizeValue.text = viewModel.toMbFormat(data.fileSize)
+                binding.contentDetail.typeValue.text = data.fileType
+                binding.contentDetail.uriValue.text = data.fileUri
             }
         }
 
         binding.contentDetail.dismissButton.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            viewModel.onBackToMainEvent()
+        }
+
+        viewModel.backToMainEvent.observe(this) { backToMainEvent ->
+            if (backToMainEvent) {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
+                viewModel.onBackToMainEventCompleted()
+            }
         }
     }
 

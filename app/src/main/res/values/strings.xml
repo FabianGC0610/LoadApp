@@ -37,5 +37,8 @@
     <!-- Details -->
     <string name="details_file_name_title">File name:</string>
     <string name="details_status_download_title">Status:</string>
+    <string name="details_size_download_title">File size:</string>
+    <string name="details_type_download_title">File type:</string>
+    <string name="details_uri_download_title">Uri:</string>
     <string name="details_button_title">OK</string>
 </resources>

@@ -2,13 +2,13 @@
 <androidx.constraintlayout.motion.widget.MotionLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/detail_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:id="@+id/detail_layout"
+    app:layoutDescription="@xml/content_detail_scene"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".detail.DetailActivity"
-    tools:showIn="@layout/activity_detail"
-    app:layoutDescription="@xml/content_detail_scene">
+    tools:showIn="@layout/activity_detail">
 
     <TextView
         android:id="@+id/file_name_title"
@@ -28,14 +28,53 @@
         android:id="@+id/file_name_value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:text="Glide - Image Loading Library by BumpTech"
-        android:textSize="@dimen/default_text_size" />
+        android:textSize="@dimen/default_text_size"
+        tools:text="Glide - Image Loading Library by BumpTech" />
 
     <TextView
         android:id="@+id/status_value"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        tools:text="Success"
+        android:textSize="@dimen/default_text_size"
+        tools:text="Success" />
+
+    <TextView
+        android:id="@+id/size_title"
+        android:text="@string/details_size_download_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/default_text_size" />
+
+    <TextView
+        android:id="@+id/size_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/default_text_size" />
+
+    <TextView
+        android:id="@+id/type_title"
+        android:text="@string/details_type_download_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/default_text_size" />
+
+    <TextView
+        android:id="@+id/type_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/default_text_size" />
+
+    <TextView
+        android:id="@+id/uri_title"
+        android:text="@string/details_uri_download_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/default_text_size" />
+
+    <TextView
+        android:id="@+id/uri_value"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:textSize="@dimen/default_text_size" />
 
     <Button
