@@ -25,8 +25,7 @@ class LoadingButton @JvmOverloads constructor(
     private var progressPercentage = 0F
     private var endPercentage = 0F
 
-    private var animationDuration = 7000L
-    private var endingAnimationDuration = 500L
+    private var animationDuration = 4000L
 
     private var drawAnimation = true
 
@@ -50,14 +49,14 @@ class LoadingButton @JvmOverloads constructor(
     var buttonState: ButtonState by Delegates.observable(ButtonState.Completed) { _, _, new ->
         when (new) {
             ButtonState.Clicked -> {
-                startLoadingAnimation(animationDuration)
+                startLoadingAnimation()
                 invalidate()
             }
             ButtonState.Completed -> {
-                startLoadingAnimation(endingAnimationDuration)
+                animator.cancel()
             }
             ButtonState.Failed -> {
-                startLoadingAnimation(endingAnimationDuration)
+                animator.cancel()
             }
             ButtonState.Loading -> {}
         }
@@ -143,8 +142,10 @@ class LoadingButton @JvmOverloads constructor(
         canvas.restore()
     }
 
-    private fun startLoadingAnimation(duration: Long) {
-        animator.duration = duration
+    private fun startLoadingAnimation() {
+        animator.duration = animationDuration
+        animator.repeatCount = ValueAnimator.INFINITE
+        animator.repeatMode = ValueAnimator.REVERSE
 
         animator.addUpdateListener { animation ->
             val animationPercentage = animation.animatedValue as Float

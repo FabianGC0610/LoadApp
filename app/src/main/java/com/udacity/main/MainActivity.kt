@@ -13,9 +13,12 @@ import android.graphics.Color
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.View
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
+import com.google.android.material.snackbar.Snackbar
 import com.udacity.R
 import com.udacity.customview.ButtonState
 import com.udacity.databinding.ActivityMainBinding
@@ -33,6 +36,7 @@ class MainActivity : AppCompatActivity() {
 
     private var url: String? = null
 
+    @RequiresApi(33)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -48,6 +52,8 @@ class MainActivity : AppCompatActivity() {
             getString(R.string.notification_channel_id),
             getString(R.string.notification_channel_name),
         )
+
+        requestNotificationPermission()
 
         startFlashingAnimation(binding.contentMain.swipeUpHelper)
         startFlashingAnimation(binding.contentMain.swipeDownHelper)
@@ -121,6 +127,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onDestroy() {
+        unregisterReceiver(receiver)
+        super.onDestroy()
+    }
+
     private val receiver = object : BroadcastReceiver() {
         @SuppressLint("Range")
         override fun onReceive(context: Context?, intent: Intent?) {
@@ -140,6 +151,7 @@ class MainActivity : AppCompatActivity() {
                     } else {
                         Uri.parse(uri).lastPathSegment
                     }
+                    requestNotificationPermission()
                     when (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))) {
                         DownloadManager.STATUS_SUCCESSFUL -> {
                             viewModel.setDownLoadState(ButtonState.Completed)
@@ -219,6 +231,21 @@ class MainActivity : AppCompatActivity() {
         animator.repeatCount = ObjectAnimator.INFINITE
         animator.repeatMode = ObjectAnimator.REVERSE
         animator.start()
+    }
+
+    private fun requestNotificationPermission() {
+        if (!viewModel.notificationManager.areNotificationsEnabled()) {
+            Snackbar.make(
+                findViewById<View>(android.R.id.content).rootView,
+                "Please grant Notification permission from App Settings",
+                Snackbar.LENGTH_LONG,
+            ).setAction("Open Settings") {
+                val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+                val uri: Uri = Uri.fromParts("package", packageName, null)
+                intent.data = uri
+                startActivity(intent)
+            }.show()
+        }
     }
 }
 

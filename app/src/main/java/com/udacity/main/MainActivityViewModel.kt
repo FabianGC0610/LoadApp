@@ -40,7 +40,7 @@ class MainActivityViewModel(private val app: Application) : ViewModel() {
     private val _downloadingStarted = MutableLiveData<Boolean>()
     val downloadingStarted: LiveData<Boolean> get() = _downloadingStarted
 
-    private val notificationManager = ContextCompat.getSystemService(
+    val notificationManager = ContextCompat.getSystemService(
         app,
         NotificationManager::class.java,
     ) as NotificationManager
