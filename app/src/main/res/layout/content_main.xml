@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
-    tools:context=".MainActivity"
+    tools:context=".main.MainActivity"
     tools:showIn="@layout/activity_main">
 
     <LinearLayout
@@ -65,20 +65,39 @@
 
     </RadioGroup>
 
-    <com.udacity.LoadingButton
+    <com.udacity.customview.LoadingButton
         android:id="@+id/custom_button"
         android:layout_width="0dp"
         android:layout_height="60dp"
         android:layout_margin="20dp"
-        app:buttonTextSize="@dimen/default_text_size"
-        app:buttonText="@string/button_name"
-        app:loadingButtonText="@string/button_loading"
-        app:textColor="@color/white"
         app:backgroundColor="@color/colorPrimary"
-        app:progressCircleColor="@color/colorAccent"
-        app:progressBackgroundColor="@color/colorPrimaryDark"
+        app:buttonText="@string/button_name"
+        app:buttonTextSize="@dimen/default_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:loadingButtonText="@string/button_loading"
+        app:progressBackgroundColor="@color/colorPrimaryDark"
+        app:progressCircleColor="@color/colorAccent"
+        app:textColor="@color/white" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/urlInputLayout"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/urlInputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="hint" />
+    </com.google.android.material.textfield.TextInputLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

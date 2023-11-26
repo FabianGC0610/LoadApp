@@ -1,12 +1,10 @@
 <resources>
-    <string name="app_name">ND940C3-Project</string>
+    <string name="app_name">LoadApp</string>
     <string name="app_description">Download files from Internet</string>
     <string name="action_settings">Settings</string>
 
-
-    <string name="notification_title">Udacity: Android Kotlin Nanodegree </string>
     <string name="notification_description">The Project 3 repository is downloaded</string>
-    <string name="notification_button">See changes</string>
+    <string name="notification_button">Check the status</string>
 
     <string name="button_name">Download</string>
     <string name="button_loading">We are loading</string>
@@ -17,4 +15,18 @@
     <string name="download_option_three">Retrofit - Type-safe HTTP client for Android and Java by Square, Inc</string>
 
     <string name="no_option_selected_message">Please select the file to download</string>
+    <string name="failed_status">Fail</string>
+    <string name="success_status">Success</string>
+
+    <!-- Notification -->
+    <string name="notification_channel_id" translatable="false">load_app_channel</string>
+    <string name="notification_channel_name">Load App Download</string>
+    <string name="notification_title">Udacity: Android Kotlin Nanodegree</string>
+    <string name="custom_url_success_notification_message">Your custom url is downloaded!!!</string>
+    <string name="failed_notification_message">Download failed</string>
+
+    <!-- Details -->
+    <string name="details_file_name_title">File name:</string>
+    <string name="details_status_download_title">Status:</string>
+    <string name="details_button_title">OK</string>
 </resources>

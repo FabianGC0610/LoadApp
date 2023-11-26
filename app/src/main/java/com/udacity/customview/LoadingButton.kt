@@ -1,4 +1,4 @@
-package com.udacity
+package com.udacity.customview
 
 import android.animation.Animator
 import android.animation.AnimatorListenerAdapter
@@ -11,6 +11,7 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.withStyledAttributes
+import com.udacity.R
 import kotlin.properties.Delegates
 
 class LoadingButton @JvmOverloads constructor(
