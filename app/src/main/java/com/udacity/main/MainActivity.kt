@@ -132,13 +132,27 @@ class MainActivity : AppCompatActivity() {
                 val cursor = downloadManager.query(query)
 
                 if (cursor.moveToFirst()) {
+                    val size = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES))
+                    val type = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_MEDIA_TYPE))
+                    val uri = cursor.getString(cursor.getColumnIndex(DownloadManager.COLUMN_URI))
+                    val title = if (viewModel.userSelection.value == UserSelection.RadioSelection) {
+                        viewModel.radioUrl.value?.first
+                    } else {
+                        Uri.parse(uri).lastPathSegment
+                    }
                     when (cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS))) {
                         DownloadManager.STATUS_SUCCESSFUL -> {
                             viewModel.setDownLoadState(ButtonState.Completed)
                             binding.contentMain.customButton.buttonState = ButtonState.Completed
                             viewModel.sendNotification(
-                                viewModel.radioUrl.value?.first!!,
-                                TransferData(viewModel.radioUrl.value?.first!!, getString(R.string.success_status)),
+                                title!!,
+                                TransferData(
+                                    title,
+                                    getString(R.string.success_status),
+                                    size,
+                                    type,
+                                    uri,
+                                ),
                             )
                         }
 
@@ -146,8 +160,14 @@ class MainActivity : AppCompatActivity() {
                             viewModel.setDownLoadState(ButtonState.Failed)
                             binding.contentMain.customButton.buttonState = ButtonState.Failed
                             viewModel.sendNotification(
-                                viewModel.radioUrl.value?.first!!,
-                                TransferData(viewModel.radioUrl.value?.first!!, getString(R.string.failed_status)),
+                                title!!,
+                                TransferData(
+                                    title,
+                                    getString(R.string.failed_status),
+                                    size,
+                                    type,
+                                    uri,
+                                ),
                             )
                         }
                     }
@@ -205,5 +225,5 @@ class MainActivity : AppCompatActivity() {
 enum class URLs(val repositoryName: String, val url: String) {
     URL_1("Glide - Image Loading Library by BumpTech", "https://github.com/bumptech/glide/archive/refs/heads/master.zip"),
     URL_2("LoadApp - Current repository by Udacity", "https://github.com/udacity/nd940-c3-advanced-android-programming-project-starter/archive/master.zip"),
-    URL_3("Retrofit - Type-safe HTTP client for Android and Java by Square, Inc", "https://github.com/square/retrofit/archive/refs/heads/master.zip")
+    URL_3("Retrofit - Type-safe HTTP client for Android and Java by Square, Inc", "https://github.com/square/retrofit/archive/refs/heads/master.zip"),
 }
